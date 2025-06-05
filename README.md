@@ -1,4 +1,4 @@
-Dự án SLAM và Điều hướng với RPLIDAR A1M8 và Robot Mecanum trên ROS 2 Jazzy
+# Dự án SLAM và Điều hướng với RPLIDAR A1M8 và Robot Mecanum trên ROS 2 Jazzy
 
 Dự án này sử dụng RPLIDAR A1M8, robot 4 bánh xe Mecanum (điều khiển qua STM32F4), và các gói ROS 2 Jazzy (slam_toolbox, nav2) để tạo bản đồ 2D, hiển thị trên RViz với mô hình robot và lưới, tích hợp odometry, và điều hướng tự động theo waypoint với khả năng tránh vật cản. Hướng dẫn này cung cấp cấu trúc dự án, nội dung file cấu hình, danh sách thư viện, và các bước thực hiện.
 
@@ -31,7 +31,7 @@ slam_ws/
 ├── log/
 
 
-Danh sách thư viện cần cài đặt: 
+# Danh sách thư viện cần cài đặt: 
 ### ROS 2 Jazzy:
 sudo apt install ros-jazzy-desktop-full
 # rplidar_ros
@@ -56,6 +56,7 @@ python3-pip install pyserial
 
 # Các bước thiết lập dự án
 ## 1. Cài đặt trên Ubuntu 24.04:
+
 sudo apt update
 sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
@@ -69,11 +70,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros/k
 sudo apt update
 sudo apt install ros-jazzy-desktop-full
 source /opt/ros/jazzy/setup.bash
-#
-#
-#
-#
-2. Thêm source ROS vào ~/.bashrc:
+
+## 2. Thêm source ROS vào ~/.bashrc:
 echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
