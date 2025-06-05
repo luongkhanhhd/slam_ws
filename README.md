@@ -32,26 +32,30 @@ slam_ws/
 
 
 Danh sách thư viện cần cài đặt: 
-# ROS 2 Jazzy:
+### ROS 2 Jazzy:
 sudo apt install ros-jazzy-desktop-full
 # rplidar_ros
 sudo apt install ros-jazzy-rplidar-ros
-# tf2_ros
+### slam_toolbox 
+sudo apt install ros-jazzy-slam-toolbox
+### tf2_ros
+sudo apt install ros-jazzy-tf2-ros
+### rviz2
+sudo apt install ros-jazzy-rviz2
+### nav2_map_server
+sudo apt install ros-jazzy-nav2-map-server
+### robot_state_publisher
+sudo apt install ros-jazzy-robot-state-publisher
+### Nav2
+sudo apt install ros-jazzy-nav2-bringup ros-jazzy-nav2-planner ros-jazzy-nav2-nav2-controller
+### Driver Mesa (cho RViz trên Raspberry Pi 5):
+sudo apt install mesa-utils
+### Python YAML và serial:
+sudo apt install python3-yaml
+python3-pip install pyserial
 
-# rviz2
-
-# nav2_map_server
-
-# robot_state_publisher
-
-# Nav2
-
-# Driver Mesa (cho RViz trên Raspberry Pi 5):
-
-# Python YAML và serial:
-
-Các bước thiết lập dự án
-1. Cài đặt trên Ubuntu 24.04:
+#Các bước thiết lập dự án
+##1. Cài đặt trên Ubuntu 24.04:
 sudo apt update
 sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
