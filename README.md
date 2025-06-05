@@ -2,6 +2,7 @@
 
 Dự án này sử dụng RPLIDAR A1M8, robot 4 bánh xe Mecanum (điều khiển qua STM32F4), và các gói ROS 2 Jazzy (slam_toolbox, nav2) để tạo bản đồ 2D, hiển thị trên RViz với mô hình robot và lưới, tích hợp odometry, và điều hướng tự động theo waypoint với khả năng tránh vật cản. Hướng dẫn này cung cấp cấu trúc dự án, nội dung file cấu hình, danh sách thư viện, và các bước thực hiện.
 
+```
 slam_ws/
 ├── src/
 │   ├── my_slam_package/
@@ -29,13 +30,13 @@ slam_ws/
 ├── build/
 ├── install/
 ├── log/
-
+```
 
 # Danh sách thư viện cần cài đặt: 
 ### ROS 2 Jazzy:
-sudo apt install ros-jazzy-desktop-full
+``` sudo apt install ros-jazzy-desktop-full ```
 # rplidar_ros
-sudo apt install ros-jazzy-rplidar-ros
+``` sudo apt install ros-jazzy-rplidar-ros ```
 ### slam_toolbox 
 sudo apt install ros-jazzy-slam-toolbox
 ### tf2_ros
@@ -102,17 +103,14 @@ ros2 pkg create --build-type ament_cmake my_slam_package --dependencies rplidar_
 
 ## Bước 3: Cấu hình thư mục và file   
 1. Tạo các thư mục con:
+```
 mkdir -p ~/slam_ws/src/my_slam_package/config
-
 mkdir -p ~/slam_ws/src/my_slam_package/launch
-
 mkdir -p ~/slam_ws/src/my_slam_package/rviz
-
 mkdir -p ~/slam_ws/src/my_slam_package/maps
-
 mkdir -p ~/slam_ws/src/my_slam_package/urdf
-
 mkdir -p ~/slam_ws/src/my_slam_package/scripts
+```
 
 2. Tạo và sao chép nội dung file:
 lidar.yaml, slam_params.yaml, nav2_params.yaml, slam_launch.py, navigation_launch.py, slam.rviz, robot.urdf, package.xml, CMakeLists.txt, odom_publisher.py, vel_to_serial.py, waypoint_navigator.py.
