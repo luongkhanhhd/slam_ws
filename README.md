@@ -54,8 +54,8 @@ sudo apt install mesa-utils
 sudo apt install python3-yaml
 python3-pip install pyserial
 
-#Các bước thiết lập dự án
-##1. Cài đặt trên Ubuntu 24.04:
+# Các bước thiết lập dự án
+## 1. Cài đặt trên Ubuntu 24.04:
 sudo apt update
 sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
