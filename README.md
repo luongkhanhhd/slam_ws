@@ -134,23 +134,135 @@ sudo apt install python3-yaml
 
 pip3 install pyserial
   
-    
+### Bước 5: Kiểm tra kết nối robot (RPLIDAR và STM32F4)
+
+1. Kết nối RPLIDAR (A1M8) vào /dev/ttyUSB0 và STM32F4 vào /dev/ttyUSB1. Kiểm tra cổng:
+ls -l /dev/ttyUSB*
+sudo dmesg | grep ttyUSB
+2. Đảm bảo quyền truy cập:
+sudo chmod 666 /dev/ttyUSB*
+sudo usermod -a -G dialout ubuntu
+
+Đăng xuất và đăng nhập lại:
+exit
+
+3. Kiểm tra RPLIDAR:
+ros2 run rplidar_ros rplidar_node --ros-args --params-file ~/slam_ws/src/my_slam_package/config/lidar.yaml
+ros2 topic echo /scan
+ 
+4. Kiểm tra STM32F4 (đảm bảo firmware đã được flash):
+python3 -c "import serial; ser = serial.Serial('/dev/ttyUSB1', 115200); print(ser.readline())"
+
+### Bước 6: Flash firmware STM32F4   
+1. Cài STM32CubeIDE và flash firmware (mẫu code trong hướng dẫn).
+2. Kiểm tra dữ liệu UART từ STM32F4:
+cat /dev/ttyUSB1
+
+### Bước 7: Build và chạy hệ thống SLAM
+1. Build workspace:
+cd ~/slam_ws
+colcon build
+source install/setup.bash
+2. Chạy SLAM:
+ros2 launch my_slam_package slam_launch.py
+3. Chạy RViz:
+export LIBGL_ALWAYS_SOFTWARE=1
+ros2 run rviz2 rviz2 -d ~/slam_ws/src/my_slam_package/rviz/slam.rviz
+
+4. Kiểm tra topic:
+   
+ros2 topic list
+
+ros2 topic echo /scan
+
+ros2 topic echo /odom
+
+ros2 topic echo /map   
+
+5. Lưu bản đồ:
+   
+ros2 run nav2_map_server map_saver2_map_nav2_cli -f ~/slam_ws/src/my_slam_package/maps/map
+
+### Bước 8: Chạy điều hướng và waypoint
+
+1. Chạy navigation:
+ 
+ ros2 launch my_slam_package navigation_launch.py  
+ 
+2. Chạy RPLIDAR node:
+
+ros2 run rplidar_ros rplidar_node --ros-args --params-file ~/slam_ws/src/my_slam_package/config/lidar.yaml
+
+3. Chạy odometry node:
+
+ros2 run my_slam_package odom_publisher.py
+
+4. Chạy điều khiển node:
+
+ros2 run my_slam_package vel_to_serial.py
+
+5. Chạy waypoint navigator:
+
+ros2 run my_slam_package waypoint_navigator.py
+
+6. Kiểm tra điều hướng:
+
+Robot sẽ di chuyển qua các điểm: A (1.0, 0.0), B (1.0,1.0, rẽ phải), C (2.0,1.0,1.0).
+
+Quan sát RViz để đảm bảo robot tránh vật cản.
+
+## Bước 9: Khắc phục lỗi
+1. Lỗi timeout RPLIDAR:
+
+- Kiểm tra nguồn điện (5V, 1A) và cổng USB.
+
+- Thử /dev/ttyUSB2 trong lidar.yaml.
+
+- Giảm scan_frequency:
+  scan_frequency: 5.0
+
+2. Lỗi GLSL trong RViz:
+- Chạy chế độ phần mềm:
+
+export LIBGL_ALWAYS_SOFTWARE=1
+ros2 run rviz2 rviz2
+
+Cập nhật driver Mesa:
+sudo apt install mesa-utils
+
+- Cài RViz từ nguồn:
+cd ~/slam_ws/src
+
+git clone -b jazzy https://github.com/ros/ros2/rviz.git
+
+cd ~/slam_ws
+
+colcon build
+
+3. Lỗi odometry:
+
+- Kiểm tra dữ liệu UART từ STM32F4:
+
+cat /dev/ttyUSB1
+
+- Đảm bảo firmware tính toán odometry đúng. 
+4. Lỗi điều hướng:
+
+- Kiểm tra /cmd_vel:
+
+ros2 topic echo /cmd_vel
+
+- Điều chỉnh nav2_params.yaml (ví dụ: tăng inflation_radius).
 
 
+## Lưu ý
 
+- Đảm bảo RPLIDAR A1M8 và STM32F4 được cấp nguồn đúng (5V, 1A cho RPLIDAR; dùng hub USB nếu cần).
 
+- Điều chỉnh thông số bánh xe (wheel_radius, wheel_base) trong firmware STM32F4 theo robot thực tế.
 
+- Waypoint có thể được tùy chỉnh trong waypoint_navigator.py bằng cách thay đổi tọa độ.
 
-
-
-
-
-
-
-
-
-
-
-
-
+- Kiểm tra OpenGL để đảm bảo RViz hiển thị:
+  glxinfo | grep "OpenGL version"
 
