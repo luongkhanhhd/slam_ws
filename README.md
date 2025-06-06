@@ -48,7 +48,7 @@ slam_ws/
 ### robot_state_publisher
 ``` sudo apt install ros-jazzy-robot-state-publisher ```
 ### Nav2
-``` sudo apt install ros-jazzy-nav2-bringup ros-jazzy-nav2-planner ros-jazzy-nav2-nav2-controller ```
+``` sudo apt install ros-jazzy-nav2-bringup ros-jazzy-nav2-planner ros-jazzy-nav2-controller ```
 ### Driver Mesa (cho RViz trên Raspberry Pi 5):
 ``` sudo apt install mesa-utils ``` 
 ### Python YAML và serial: 
