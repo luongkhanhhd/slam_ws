@@ -1,0 +1,1 @@
+rclpy;rclcpp;nav_msgs;geometry_msgs;slam_toolbox;rviz2;tf2_ros;nav2_bringup;nav2_map_server;nav2_msgs;robot_state_publisher;rplidar_ros;python3-serial

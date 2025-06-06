@@ -1,0 +1,4 @@
+chay 2 file deu dc:
+	lidar_test_pi.py 	(chua sua ki tu do)
+	lidar_test_pi_.py  	(da sua ki tu do)
+

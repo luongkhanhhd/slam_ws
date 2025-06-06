@@ -1,0 +1,7 @@
+pygame==2.6.1
+ultralytics==8.3.118
+opencv-python==4.11.0.68
+PyQt5==5.15.11
+numpy==1.24.2
+pillow==9.4.0
+picamera2==0.3.25

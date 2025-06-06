@@ -1,0 +1,103 @@
+controller_server:
+  ros__parameters:
+    use_sim_time: false
+    controller_frequency: 10.0
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.001
+    min_theta_velocity_threshold: 0.001
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      plugin: "nav2_mppi_controller::MPPIController"
+      time_steps: 56
+      model_dt: 0.05
+      batch_size: 2000
+      vx_max: 0.5
+      vx_min: -0.5
+      vy_max: 0.5
+      vy_min: -0.5
+      wz_max: 0.4
+      wz_min: -0.4
+      lookahead_dist: 0.5
+      motion_model: "Omnidirectional"
+      visualize: false
+
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 2.0
+    use_sim_time: false
+    planner_plugins: ["GridBased"]
+    GridBased:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+      tolerance: 0.5
+      use_astar: true
+
+local_costmap:
+  ros__parameters:
+    update_frequency: 5.0
+    publish_frequency: 2.0
+    global_frame: odom
+    robot_base_frame: base_link
+    use_sim_time: false
+    rolling_window: true
+    width: 3
+    height: 3
+    resolution: 0.05
+    plugins: ["obstacle_layer", "inflation_layer"]
+    obstacle_layer:
+      plugin: "nav2_costmap_2d::ObstacleLayer"
+      enabled: true
+      observation_sources: scan
+      scan:
+        topic: /scan
+        sensor_frame: laser
+        observation_persistence: 0.0
+        data_type: LaserScan
+    inflation_layer:
+      plugin: "nav2_costmap_2d::InflationLayer"
+      enabled: true
+      inflation_radius: 0.55
+      cost_scaling_factor: 2.58
+
+global_costmap:
+  ros__parameters:
+    update_frequency: 1.0
+    publish_frequency: 1.0
+    global_frame: map
+    robot_base_frame: base_link
+    use_sim_time: false
+    resolution: 0.05
+    track_unknown_space: true
+    plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+    static_layer:
+      plugin: "nav2_costmap_2d::StaticLayer"
+      map_subscribe_transient_local: true
+      enabled: true
+    obstacle_layer:
+      plugin: "nav2_costmap_2d::ObstacleLayer"
+      enabled: true
+      observation_sources: scan
+      scan:
+        topic: /scan
+        sensor_frame: laser
+        observation_persistence: 0.0
+        data_type: LaserScan
+    inflation_layer:
+      plugin: "nav2_costmap_2d::InflationLayer"
+      enabled: true
+      inflation_radius: 0.55
+      cost_scaling_factor: 2.58
+
+amcl:
+  ros__parameters:
+    use_sim_time: false
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_link"
+    global_frame_id: "map"
+    odom_frame_id: "odom"
+    scan_topic: /scan
+    set_initial_pose: false
+    transform_tolerance: 0.5

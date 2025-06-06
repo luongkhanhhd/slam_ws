@@ -1,0 +1,9 @@
+[33mCMake Warning at /home/ubuntu/slam_ws/install/rplidar_ros/share/rplidar_ros/cmake/ament_cmake_export_include_directories-extras.cmake:11 (message):
+  Package 'rplidar_ros' exports the include directory
+  '/home/ubuntu/slam_ws/install/rplidar_ros/share/rplidar_ros/cmake/../../../include'
+  which doesn't exist
+Call Stack (most recent call first):
+  /home/ubuntu/slam_ws/install/rplidar_ros/share/rplidar_ros/cmake/rplidar_rosConfig.cmake:41 (include)
+  CMakeLists.txt:14 (find_package)
+
+[0m
